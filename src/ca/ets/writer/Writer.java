@@ -1,4 +1,4 @@
-package gti310.tp3.writer;
+package ca.ets.writer;
 
 /**
  * The Writer interface defines a method to write user-defined objects to file.
@@ -13,7 +13,7 @@ package gti310.tp3.writer;
  * 
  * 		Writer<AnObject> writer = new AnObjectWriter();
  * 
- * @author François Caron <francois.caron.7@ens.etsmtl.ca>
+ * @author Franï¿½ois Caron <francois.caron.7@ens.etsmtl.ca>
  *
  * @param <T> The user-defined object that will be written to file. 
  */

@@ -1,4 +1,6 @@
-package gti310.tp3.solver;
+package ca.ets.solver;
+
+import ca.ets.parser.Parser;
 
 /**
  * The Solver interface presents a method definition to complete a given task.
@@ -15,7 +17,7 @@ package gti310.tp3.solver;
  *  handing in the data.
  *  @see Parser
  *  
- * @author François Caron <francois.caron.7@ens.etsmtl.ca>
+ * @author Franï¿½ois Caron <francois.caron.7@ens.etsmtl.ca>
  *
  * @param <E> The template defining the awaited input object.
  * @param <T> The template defining the output object to return.
