@@ -1,5 +1,6 @@
 package ca.ets.solver;
 
+import ca.ets.FileInformation;
 import ca.ets.parser.Parser;
 
 /**
@@ -9,7 +10,7 @@ import ca.ets.parser.Parser;
  * downside, the added flexibility also bring disadvantages. The caster must
  * know the type of the object that will be returned by the Solver beforehand.
  * 
- * 		public class ConcreteSolver implements Solver<InObj, OutObj> { ... }
+ * 		public class ConcreteSolver implements Solver<FileInformation, OutObj> { ... }
  * 
  * 		Solver<InObj,OutObj> solver = new ConcreteSolver();
  * 
@@ -19,10 +20,10 @@ import ca.ets.parser.Parser;
  *  
  * @author Fran�ois Caron <francois.caron.7@ens.etsmtl.ca>
  *
- * @param <E> The template defining the awaited input object.
+ * @param <FileInformation> The template defining the awaited input object.
  * @param <T> The template defining the output object to return.
  */
-public interface Solver<E,T> {
+public interface Solver<FileInformation,T> {
 
 	/**
 	 * Complete the required task based on the input E and return an output
@@ -32,5 +33,5 @@ public interface Solver<E,T> {
 	 * @param input The object required to complete the task.
 	 * @return A user defined object, or null if something went wrong.
 	 */
-	T solve(E input);
+	T solve(ca.ets.FileInformation input);
 }

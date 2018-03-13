@@ -15,16 +15,16 @@ public class ConcreteParser implements Parser {
         long val_infinie = 0;
         int sommet_depart = 0;
         int count_line = 0;
-        FileInformation fileInfo = null ;
+        FileInformation fileInfo = null;
 
         // code modifié à partir de https://www.developpez.net/forums/d1214517/java/general-java/apis/io/lire-fichier-texte-java/
-        try{
+        try {
             InputStream flux = new FileInputStream(filename);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
 
-            while ((ligne=buff.readLine())!=null) {
+            while ((ligne = buff.readLine()) != null) {
 
                 if (count_line == 0) {
                     try {
@@ -37,25 +37,20 @@ public class ConcreteParser implements Parser {
                     try {
                         val_infinie = Long.parseLong(ligne);
                         count_line += 1;
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         System.out.println("fichier mal formaté");
                     }
-                }
-                else if (count_line == 2) {
-                    if ( ligne.split("\t").length == 1) {
+                } else if (count_line == 2) {
+                    if (ligne.split("\t").length == 1) {
                         sommet_depart = Integer.parseInt(ligne);
                         fileInfo = new FileInformation(nb_sommet, val_infinie, sommet_depart);
-                    }
-                    else {
+                    } else {
                         fileInfo = new FileInformation(nb_sommet, val_infinie, sommet_depart);
                         int[] chemin = getInfo(ligne);
                         fileInfo.setChemin(chemin);
                     }
                     count_line += 1;
-                }
-
-                else {
+                } else {
                     if (!ligne.equals("$")) {
                         int[] chemin = getInfo(ligne);
                         if (fileInfo != null) {
@@ -65,25 +60,23 @@ public class ConcreteParser implements Parser {
                 }
             }
             buff.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         return fileInfo;
     }
 
     private int[] getInfo(String ligne) {
+
         int[] chemin = new int[3];
         String[] st_chemin = ligne.split("\t", -1);
         try {
             for (int i = 0; i < 3; i++) chemin[i] = Integer.parseInt(st_chemin[i]);
 
+        } catch (Exception e) {
+            System.out.println("fichier mal formaté");
         }
-        catch (Exception e) { System.out.println("fichier mal formaté");}
 
         return chemin;
-
     }
-
-
 }

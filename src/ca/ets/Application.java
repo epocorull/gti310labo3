@@ -1,7 +1,11 @@
 package ca.ets;
 
 import ca.ets.parser.ConcreteParser;
+import ca.ets.solver.ConcreteSolver;
+import ca.ets.writer.ConcreteWriter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -24,6 +28,18 @@ public class Application {
 	public static void main(String args[]) {
 		System.out.println("Unreal Networks Solver !");
 		ConcreteParser parser = new ConcreteParser();
-		parser.parse("/home/elsa/dev/gti310/medias/Grosse-Neige.txt");
-	}
+		FileInformation fileInformation = (FileInformation) parser.parse("/home/elsa/dev/gti310/medias/Grosse-Neige.txt");
+
+		ConcreteSolver solver = new ConcreteSolver();
+		String[] cycles = solver.solve(fileInformation).getCyclesEulerien();
+
+		System.out.println(Arrays.toString(cycles));
+
+        ConcreteWriter writer = new ConcreteWriter();
+        try {
+            writer.write("CheminsDeneigeuse.txt", solver.solve(fileInformation));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
