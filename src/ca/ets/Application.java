@@ -28,7 +28,7 @@ public class Application {
 	public static void main(String args[]) {
 		System.out.println("Unreal Networks Solver !");
 		ConcreteParser parser = new ConcreteParser();
-		FileInformation fileInformation = (FileInformation) parser.parse("/home/elsa/dev/gti310/medias/Grosse-Neige.txt");
+		FileInformation fileInformation = (FileInformation) parser.parse(args[0]);
 
 		ConcreteSolver solver = new ConcreteSolver();
 		String[] cycles = solver.solve(fileInformation).getCyclesEulerien();
@@ -37,7 +37,7 @@ public class Application {
 
         ConcreteWriter writer = new ConcreteWriter();
         try {
-            writer.write("CheminsDeneigeuse.txt", solver.solve(fileInformation));
+            writer.write(args[1], solver.solve(fileInformation));
         } catch (IOException e) {
             e.printStackTrace();
         }
