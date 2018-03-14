@@ -15,7 +15,7 @@ public class CycleEulerien {
 		matrice.calcul();
 		this.matriceDePoid = matrice.getMatriceDePoid() ;
 		this.sommetDepart = sommetDepart ;
-		this.cycle_eulerien = new int[listeArc.size()];
+		this.cycle_eulerien = new int[listeArc.size() + 1];
 	}
 	
 	
@@ -42,29 +42,26 @@ public class CycleEulerien {
         longueurCycle = cycleIntermediaire.size();
 
         //On boucle tant que la matrice de poids contient des arcs
-        int inou = 0;
-        while (matriceNonVide == true ) {
-            inou = inou+1;
-            System.out.println(inou);
+        while (matriceNonVide) {
             matriceNonVide = false;
 
             //On trouve un sommet non isolé qui servira de départ à un nouveau cycle
             for (int ind_elmt = 0; ind_elmt < longueurCycle; ind_elmt++) {
                 int elmt = cycleIntermediaire.get(ind_elmt);
                 int col = 1;
-                while (col < tailleMatrice + 1) {
+                while (col <= tailleMatrice ) {
                     //On trouve un sommet (elmt) présent dans un le cycle qui est non isolé
                     if (matriceDePoid[elmt - 1 ][col -1] != -1) {
 
                         //On recopie la première partie du cycle dans un tableau
+                        PartieCycle1 = new ArrayList<>();
                         for (int k = 0; k < ind_elmt; k++) {
-                            PartieCycle1 = new ArrayList<>();
                             PartieCycle1.add(cycleIntermediaire.get(k));
                         }
 
                         //On recopie la deuxième partie du cycle
-                        for (int k = ind_elmt; k < longueurCycle; k++) {
-                            PartieCycle3 = new ArrayList<>();
+                        PartieCycle3 = new ArrayList<>();
+                        for (int k = ind_elmt + 1; k < longueurCycle; k++) {
                             PartieCycle3.add(cycleIntermediaire.get(k));
                         }
 
@@ -73,7 +70,7 @@ public class CycleEulerien {
 
                         //On sort des boucles for
                         elmt = longueurCycle;
-                        col = tailleMatrice;
+                        col = tailleMatrice + 1;
                     } else col = col + 1;
                 }
             }
@@ -91,15 +88,17 @@ public class CycleEulerien {
             cycleIntermediaire.addAll(PartieCycle2);
             cycleIntermediaire.addAll(PartieCycle3);
 
+            longueurCycle = cycleIntermediaire.size();
+
 
             //On regarde si il reste des éléments dans la matrice de poids
-            //for (int[] aMatriceDePoid : matriceDePoid) {
-              //  for (int j = 0; j < tailleMatrice; j++) {
-                //    if (aMatriceDePoid[j] > 0) {
-                  //      matriceNonVide = true;
-                    //}
-                //}
-            //}
+            for (int[] aMatriceDePoid : matriceDePoid) {
+                for (int j = 0; j < tailleMatrice; j++) {
+                    if (aMatriceDePoid[j] > 0) {
+                        matriceNonVide = true;
+                    }
+                }
+            }
         }
 
 
